@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: 'OAuth'
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ''
+            client-secret: '''
+            scope: profile,email
