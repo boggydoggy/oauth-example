@@ -33,13 +33,13 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
         OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
-        // 현재 로그인 진행 중인 서비스 구분
+        // 현재 로그인 진행 중인 서비스 구분(google, naver, kakao, etc...)
         String registrationId = userRequest
                 .getClientRegistration()
                 .getRegistrationId();
         log.info("registrationId: {}", registrationId);
 
-        // OAuth2 로그인 성공시 키 값
+        // OAuth2 로그인 진행 시 키 값(각 소셜 서비스의 유니크 필드)
         String userNameAttributeName = userRequest.getClientRegistration()
                 .getProviderDetails()
                 .getUserInfoEndpoint()

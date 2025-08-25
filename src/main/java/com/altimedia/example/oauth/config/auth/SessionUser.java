@@ -3,8 +3,10 @@ package com.altimedia.example.oauth.config.auth;
 import com.altimedia.example.oauth.domain.Users;
 import lombok.Getter;
 
+import java.io.Serializable;
+
 @Getter
-public class SessionUser {
+public class SessionUser implements Serializable {
     private final String name, email, picture;
 
     public SessionUser(Users users) {
