@@ -1,11 +1,22 @@
 spring:
   application:
     name: 'OAuth'
+  jpa:
+    hibernate:
+      ddl-auto: update # SQL을 통하지 않고 연결된 DB에 JPA @Entity로 테이블 생성 가능
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
   security:
     oauth2:
       client:
         registration:
           google:
-            client-id: ''
-            client-secret: '''
+            client-id: [client-id]
+            client-secret: [client-secret]
             scope: profile,email
+            #  https://console.cloud.google.com/welcome 에서 생성한 프로젝트의 클라이언트 id와 비밀번호 입력
+            #  비밀번호는 금방 암호화되니 생성 후 따로 저장 혹은 바로 입력해야함)
+  datasource:
+    url: jdbc:postgresql://localhost:5433/testdb
+    username: test
+    password: tes
