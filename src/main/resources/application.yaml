@@ -19,4 +19,4 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5433/testdb
     username: test
-    password: tes
+    password: test
