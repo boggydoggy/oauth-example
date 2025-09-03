@@ -12,10 +12,11 @@
                     <span id="login-user" th:text="${userName}">사용자</span> 님, 안녕하세요.
                     <a href="/logout" class="btn btn-sm btn-info active" role="button">Logout</a>
                 </div>
-                <div th:if="${#strings.isEmpty(userName)}">
+                <div th:if="${#strings.isEmpty(userName)}" style="flex-direction:column">
                     <!-- 스프링 시큐리티에서 기본 제공하는 URL - 별도 컨트롤러 작성 필요 없음 -->
                     <a href="/oauth2/authorization/google" class="btn btn-sm btn-success active" role="button">Google Login</a>
                     <a href="/oauth2/authorization/naver" class="btn btn-sm btn-success active" role="button">Naver Login</a>
+                    <a href="/oauth2/authorization/kakao" class="btn btn-sm btn-success active" role="button">Kakao Login</a>
                 </div>
 
             </div>
