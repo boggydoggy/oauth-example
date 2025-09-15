@@ -3,7 +3,7 @@ spring:
     name: 'OAuth'
   profiles:
     active: local
-    include: oauth # application-oauth.yaml 파일 추가
+    include: oauth, manual-oauth # application-oauth.yaml, application-manual-oauth.yaml 파일 추가
   jpa:
     hibernate:
       ddl-auto: update # SQL을 통하지 않고 연결된 DB에 JPA @Entity로 테이블 생성 가능
@@ -13,3 +13,5 @@ spring:
     url: jdbc:postgresql://localhost:5433/testdb
     username: test
     password: test
+server:
+  port: 8081

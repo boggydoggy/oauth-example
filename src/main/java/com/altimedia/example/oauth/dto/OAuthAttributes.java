@@ -13,19 +13,21 @@ import java.util.Map;
 @Getter
 public class OAuthAttributes {
     private Map<String, Object> attributes;
-    private String nameAttributeKey, name, email, picture;
+    private String nameAttributeKey, name, email, picture, provider;
 
     @Builder
     public OAuthAttributes(Map<String, Object> attributes,
                            String nameAttributeKey,
                            String name,
                            String email,
-                           String picture) {
+                           String picture,
+                           String provider) {
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
         this.name = name;
         this.email = email;
         this.picture = picture;
+        this.provider = provider;
     }
 
     public static OAuthAttributes of(String registrationId,
@@ -33,41 +35,46 @@ public class OAuthAttributes {
                                      Map<String, Object> attributes) {
         switch (registrationId) {
             case "google":
-                return ofGoogle(userNameAttributeName, attributes);
+                return ofGoogle(registrationId, userNameAttributeName, attributes);
             case "naver":
-                return ofNaver(userNameAttributeName, attributes);
+                return ofNaver(registrationId, userNameAttributeName, attributes);
             case "kakao":
-                return ofKakao(userNameAttributeName, attributes);
+                return ofKakao(registrationId, userNameAttributeName, attributes);
             default:
                 throw new RuntimeException();
         }
 
     }
 
-    public static OAuthAttributes ofGoogle(String userNameAttributeName,
+    public static OAuthAttributes ofGoogle(String registrationId,
+                                           String userNameAttributeName,
                                            Map<String, Object> attributes) {
         return OAuthAttributes.builder()
                 .name((String) attributes.get("name"))
                 .email((String) attributes.get("email"))
                 .picture((String) attributes.get("picture"))
+                .provider(registrationId)
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }
 
-    public static OAuthAttributes ofNaver(String userNameAttributeName,
+    public static OAuthAttributes ofNaver(String registrationId,
+                                          String userNameAttributeName,
                                           Map<String, Object> attributes) {
         Map<String, Object> response = (Map<String, Object>) attributes.get("response");
         return OAuthAttributes.builder()
                 .name((String) response.get("name"))
                 .email((String) response.get("email"))
                 .picture((String) response.get("profile_image"))
+                .provider(registrationId)
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }
 
-    public static OAuthAttributes ofKakao(String userNameAttributeName,
+    public static OAuthAttributes ofKakao(String registrationId,
+                                          String userNameAttributeName,
                                          Map<String, Object> attributes) {
         Map<String, Object> properties = (Map<String, Object>) attributes.get("properties");
         Map<String, Object> account = (Map<String, Object>) attributes.get("kakao_account");
@@ -76,6 +83,7 @@ public class OAuthAttributes {
                 .name((String) properties.get("nickname"))
                 .email((String) account.get("email"))
                 .picture((String) properties.get("profile_image"))
+                .provider(registrationId)
                 .attributes(attributes)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
@@ -86,6 +94,7 @@ public class OAuthAttributes {
                 .name(name)
                 .email(email)
                 .picture(picture)
+                .provider(provider)
                 .role(Role.GUEST)
                 .build();
     }

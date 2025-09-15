@@ -22,11 +22,15 @@ import java.util.List;
 
 @Slf4j
 @Transactional
-@RequiredArgsConstructor
 @Service
-public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
-    private final UserRepository userRepository;
+public class CustomOAuth2UserService extends CommonOAuthService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+
     private final HttpSession httpSession;
+
+    public CustomOAuth2UserService(UserRepository userRepository, HttpSession httpSession) {
+        super(userRepository);
+        this.httpSession = httpSession;
+    }
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
@@ -60,21 +64,5 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
                 attributes.getAttributes(),
                 attributes.getNameAttributeKey()
         );
-    }
-
-    private Users saveOrUpdate(OAuthAttributes attributes) {
-        List<Users> result = userRepository.findByEmail(attributes.getEmail())
-                .map(entity -> entity.update(attributes.getName(), attributes.getPicture()))
-                .toList();
-
-        Users users;
-
-        if (result.isEmpty()) {
-            users = attributes.toEntity();
-        } else {
-            users = result.get(0);
-        }
-
-        return userRepository.save(users);
     }
 }

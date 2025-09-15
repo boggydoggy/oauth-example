@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual OAuth2.0 Login</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        line-height: 1.6;
+    }
+    .container {
+        text-align: center;
+    }
+    .login-buttons {
+        margin: 20px 0;
+    }
+    .login-btn {
+        display: inline-block;
+        margin: 10px;
+        padding: 12px 24px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+    .google-btn {
+        background-color: #db4437;
+        color: white;
+    }
+    .google-btn:hover {
+        background-color: #c23321;
+    }
+    .naver-btn {
+        background-color: #03c75a;
+        color: white;
+    }
+    .naver-btn:hover {
+        background-color: #02b350;
+    }
+    .kakao-btn {
+        background-color: #fee500;
+        color: #191919;
+    }
+    .kakao-btn:hover {
+        background-color: #fdd835;
+    }
+    .logout-btn {
+        background-color: #666;
+        color: white;
+        padding: 8px 16px;
+        text-decoration: none;
+        border-radius: 3px;
+        margin-left: 10px;
+    }
+    .logout-btn:hover {
+        background-color: #555;
+    }
+    .user-info {
+        background-color: #f8f9fa;
+        border: 1px solid #dee2e6;
+        border-radius: 5px;
+        padding: 20px;
+        margin: 20px 0;
+    }
+    .profile-img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 15px;
+        vertical-align: middle;
+    }
+    .back-link {
+        margin-top: 30px;
+    }
+    .back-link a {
+        color: #007bff;
+        text-decoration: none;
+    }
+    .back-link a:hover {
+        text-decoration: underline;
+    }
+    .error {
+        color: #dc3545;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Manual OAuth2.0 Login Example</h1>
+  <p>This is a manual implementation of OAuth2.0 login without Spring Security</p>
+
+  <!-- 로그인된 사용자 정보 표시 -->
+  <div th:if="${user != null}" class="user-info">
+    <div>
+      <img th:if="${user.picture != null}"
+           th:src="${user.picture}"
+           alt="프로필 이미지"
+           class="profile-img">
+      <strong th:text="${user.name}">사용자 이름</strong>
+      <span>님, 안녕하세요!</span>
+      <a href="/manual/logout" class="logout-btn">로그아웃</a>
+    </div>
+    <div style="margin-top: 15px;">
+      <p><strong>Provider:</strong> <span th:text="${user.provider}"></span></p>
+      <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+    </div>
+  </div>
+
+  <!-- 로그인 버튼들 -->
+  <div th:if="${user == null}" class="login-buttons">
+    <a href="/manual/login/google" class="login-btn google-btn">Google로 로그인</a>
+    <a href="/manual/login/naver" class="login-btn naver-btn">Naver로 로그인</a>
+    <a href="/manual/login/kakao" class="login-btn kakao-btn">Kakao로 로그인</a>
+  </div>
+
+  <div class="back-link">
+    <a href="/">← Spring Security OAuth 예제로 돌아가기</a>
+  </div>
+</div>
+</body>
+</html>

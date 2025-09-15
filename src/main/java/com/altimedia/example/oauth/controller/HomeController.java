@@ -16,13 +16,12 @@ public class HomeController {
 
     @GetMapping("/")
     public String index(Model model) {
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        Object user =  httpSession.getAttribute("user");
 
         log.debug("index");
 
         if(user != null) {
-            model.addAttribute("userName", user.getName());
-            model.addAttribute("userImg", user.getPicture());
+            model.addAttribute("user", user);
         }
 
         return "index";

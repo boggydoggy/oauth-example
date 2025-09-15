@@ -22,15 +22,19 @@ public class Users extends Base_Entity{
     @Column
     private String picture;
 
+    @Column
+    private String provider;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
 
     @Builder
-    public Users(String name, String email, String picture, Role role) {
+    public Users(String name, String email, String picture, String provider,Role role) {
         this.name = name;
         this.email = email;
         this.picture = picture;
+        this.provider = provider;
         this.role = role;
     }
 

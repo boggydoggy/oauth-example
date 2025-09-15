@@ -32,8 +32,8 @@ public class SecurityConfig {
         http.csrf(csrfConfig -> csrfConfig.disable())
                 .headers(headersConfig -> headersConfig.frameOptions(frameOptionsConfig ->
                         frameOptionsConfig.disable()))
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/", "/Savory-gh-pages/**").permitAll())
-                .formLogin(formLoginConfig -> formLoginConfig.loginPage("/login").defaultSuccessUrl("/"))
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/", "/manual/**").permitAll())
+//                .formLogin(formLoginConfig -> formLoginConfig.loginPage("/login").defaultSuccessUrl("/"))
                 .logout(logoutConfig -> logoutConfig.logoutSuccessUrl("/"))
                 .oauth2Login(oauth2LoginConfig -> oauth2LoginConfig.userInfoEndpoint(userInfoEndpointConfig ->
                         userInfoEndpointConfig.userService(customOAuth2UserService)));

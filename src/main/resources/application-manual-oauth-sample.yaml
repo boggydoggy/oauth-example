@@ -1,0 +1,14 @@
+manual:
+  oauth:
+    google:
+      client-id: [your-google-client-id]
+      client-secret: [your-google-client-secret]
+      redirect-uri: http://localhost:8080/manual/callback/google
+    naver:
+      client-id: [your-naver-client-id]
+      client-secret: [your-naver-client-secret]
+      redirect-uri: http://localhost:8080/manual/callback/naver
+    kakao:
+      client-id: [your-kakao-client-id]
+      client-secret: [your-kakao-client-secret]
+      redirect-uri: http://localhost:8080/manual/callback/kakao
